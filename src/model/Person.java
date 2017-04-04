@@ -4,7 +4,7 @@ package model;
  * Created by Marianne
  * on 04/04/2017.
  */
-public class Person {
+public abstract class Person {
     private String name;
     private String firstName;
 
