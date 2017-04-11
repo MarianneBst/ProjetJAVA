@@ -18,6 +18,7 @@ public class VirtualDepartmentTest {
 
     @Before
     public void setUp() throws Exception{
+        manager = new Manager("Rene", "Guillaume", new Date(0), new Date(0), new Date(0), "rene.guillaume@apple.com");
         department = new StandardDepartment("Informatique", manager);
         employee = new Employee("Ronan","Guillaume", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()));
 
