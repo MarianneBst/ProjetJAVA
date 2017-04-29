@@ -12,12 +12,14 @@ public abstract class VirtualDepartment {
     private HashMap<UUID, Employee> employeesList;
     private Leader leader;
 
+    //Constructor
     public VirtualDepartment(String name, Leader leader) {
         this.name = name;
         this.employeesList = new HashMap<>();
         this.leader = leader;
     }
 
+    // Setter and Getter
     public String getName() {
         return name;
     }
@@ -50,6 +52,13 @@ public abstract class VirtualDepartment {
         return employee;
     }
 
+    public HashMap<UUID, Employee> getEmployeesList() {
+        return employeesList;
+    }
+
+
+
+    // Add and Delete from a list
     public void addEmployee(Employee employee) throws IllegalArgumentException{
 
         if( employee == null){
@@ -67,6 +76,7 @@ public abstract class VirtualDepartment {
         }
         employeesList.remove(employee.getId());
     }
+
 
     @Override
     public String toString() {

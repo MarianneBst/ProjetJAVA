@@ -4,6 +4,8 @@ package model;
  * Created by Marianne
  * on 04/04/2017.
  */
+
+// implement leader -> implement same fct
 public class Boss extends Person implements Leader{
 
     private String mail;

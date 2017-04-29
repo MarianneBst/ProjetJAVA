@@ -2,6 +2,8 @@ package model;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -18,9 +20,9 @@ public class VirtualDepartmentTest {
 
     @Before
     public void setUp() throws Exception{
-        manager = new Manager("Rene", "Guillaume", new Date(0), new Date(0), new Date(0), "rene.guillaume@apple.com");
+        manager = new Manager("Rene", "Guillaume", LocalDateTime.of(1,1,1,1,1,1), LocalDateTime.of(1,1,1,1,1,1), "rene.guillaume@apple.com");
         department = new StandardDepartment("Informatique", manager);
-        employee = new Employee("Ronan","Guillaume", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()));
+        employee = new Employee("Ronan","Guillaume", LocalDateTime.of(1,1,1,1,1,1), LocalDateTime.of(1,1,1,1,1,1));
 
     }
 
