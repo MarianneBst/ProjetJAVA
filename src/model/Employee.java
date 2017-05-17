@@ -18,16 +18,18 @@ public class Employee extends Person{
     private LocalDateTime endHour;
     private LocalDateTime creditHour;
     private ArrayList<Tally> tallies; //all tallies of the day, list of object Tally
+    private StandardDepartment standardDepartment;
 
 
     // Constructor
-    public Employee(String name, String firstName, LocalDateTime startHour, LocalDateTime endHour) {
+    public Employee(String name, String firstName, LocalDateTime startHour, LocalDateTime endHour, StandardDepartment standardDepartment) {
         super(name, firstName);
         tallies = new ArrayList<>();
         this.id = UUID.randomUUID();
         this.startHour = startHour;
         this.endHour = endHour;
         this.creditHour = LocalDateTime.of(0,1,1,0,0); // years 0, month 01, day 01, hour 00, minute 00
+        this.standardDepartment = standardDepartment;
     }
 
     // Getter and setter
@@ -40,9 +42,17 @@ public class Employee extends Person{
         return startHour;
     }
 
-    public void setStartHour(LocalDateTime startHour) {
+    public LocalDateTime getCreditHour() {
 
-        this.startHour = startHour;
+        return creditHour;
+    }
+
+    public StandardDepartment getStandardDepartment() {
+        return standardDepartment;
+    }
+
+    public Tally getLastTally(){
+        return tallies.get(tallies.size() - 1);
     }
 
     public LocalDateTime getEndHour() {
@@ -50,38 +60,33 @@ public class Employee extends Person{
         return endHour;
     }
 
-    public void setEndHour(LocalDateTime endHour) {
+    void setEndHour(LocalDateTime endHour) {
 
         this.endHour = endHour;
     }
 
-    public LocalDateTime getCreditHour() {
-
-        return creditHour;
-    }
-
-    public void setCreditHour(LocalDateTime creditHour) {
+    void setCreditHour(LocalDateTime creditHour) {
 
         this.creditHour = creditHour;
     }
 
-    public Tally getLastTally(){
-        return tallies.get(tallies.size() - 1);
-    }
-
-    public void addTally(Tally tally){
+    void addTally(Tally tally){
         // TODO: 10/04/2017 Update credits
 //        Date checkDate;
 //        int minutes;
 //        checkDate = tally.getCheckDate();
 //        minutes = checkDate.getMinutes();
-
-
         tallies.add(tally);
-
     }
 
+    void setStandardDepartment(StandardDepartment standardDepartment) {
+        this.standardDepartment = standardDepartment;
+    }
 
+    void setStartHour(LocalDateTime startHour) {
+
+        this.startHour = startHour;
+    }
 
     @Override
     public String toString() {

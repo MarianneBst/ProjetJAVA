@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.UUID;
@@ -8,9 +10,9 @@ import java.util.UUID;
  * Created by Marianne
  * on 04/04/2017.
  */
-public class Company extends Observable {
+public class Company extends Observable implements Serializable {
     private String name;
-    private HashMap<String, StandardDepartment> standardDepartmentList;
+    private ArrayList<StandardDepartment> standardDepartmentList;
     private ManagementDepartment managementDepartment;
     private Boss boss;
     //list for tally of the day
@@ -18,7 +20,7 @@ public class Company extends Observable {
     //Constructor
     public Company(String name, Boss boss) {
         this.name = name;
-        this.standardDepartmentList = new HashMap<>();
+        this.standardDepartmentList = new ArrayList<>();
         this.boss = boss;
         this.managementDepartment = new ManagementDepartment(boss);
     }
@@ -31,6 +33,7 @@ public class Company extends Observable {
 
     public void setName(String name) {
         this.name = name;
+        setChanged();
     }
 
     public Boss getBoss() {
@@ -39,6 +42,7 @@ public class Company extends Observable {
 
     public void setBoss(Boss boss) {
         this.boss = boss;
+        setChanged();
     }
 
     public ManagementDepartment getManagementDepartment() {
@@ -47,27 +51,37 @@ public class Company extends Observable {
 
     public StandardDepartment getStandardDepartmentByName(String name) throws IllegalArgumentException{
 
+        StandardDepartment result = null;
+
         if(name == null){
             throw new IllegalArgumentException("Name null");
         }
-        StandardDepartment standardDepartment = standardDepartmentList.get(name);
-        if( standardDepartment == null){
-            throw new IllegalArgumentException("wrong name");
+
+        for (StandardDepartment standardDpt: standardDepartmentList) {
+            if(standardDpt.getName().equals(name)) {
+             result = standardDpt;
+             break;// saut deux paranthèses
+            }
         }
-        return standardDepartment;
+
+        if( result == null){
+            throw new IllegalArgumentException("Wrong name");// = pb au niveau de l'argument
+        }
+        return result;
     }
 
     public int getNbStandardDepartment() throws IllegalArgumentException{
         return standardDepartmentList.size();
     }
 
-    public HashMap<UUID, Employee> getAllEmployees(){
-        HashMap<UUID, Employee> result = new HashMap<>();
+    public ArrayList<Employee> getAllEmployees(){
+        ArrayList<Employee> result = new ArrayList<>();
 
-        result.putAll(managementDepartment.getEmployeesList());
+        //Add the managers
+        result.addAll(managementDepartment.getEmployeesList());
 
-        for (StandardDepartment standardDepartment : standardDepartmentList.values()) {
-            result.putAll(standardDepartment.getEmployeesList());
+        for (StandardDepartment standardDepartment : standardDepartmentList) {
+            result.addAll(standardDepartment.getEmployeesList());
         }
 
         return result;
@@ -78,24 +92,33 @@ public class Company extends Observable {
     public void addStandardDepartment(StandardDepartment department) throws IllegalArgumentException{
 
         if( department == null){
-            throw new IllegalArgumentException("null argument");
+            throw new IllegalArgumentException("Null argument");
         }
 
-        standardDepartmentList.put(department.getName(), department);
+        standardDepartmentList.add(department);
+        setChanged();
     }
 
     public void deleteStandardDepartment(StandardDepartment department){
 
         if( department == null){
-            throw new IllegalArgumentException("null argument");
+            throw new IllegalArgumentException("Null argument");
         }
-        if( standardDepartmentList.remove(department.getName()) == null){
+        if( !standardDepartmentList.remove(department)){
             throw new IllegalArgumentException("Department not found");
         }
-
-        standardDepartmentList.remove(department.getName());
+        setChanged();
     }
 
 
+    //Methode pour le controller
+    public void addEmployeeIntoStandardDpt(Employee employee){
+        employee.getStandardDepartment().addEmployee(employee);
+        setChanged();
+    }
+    public void removeEmployeeFromStandardDpt(Employee employee){
+        employee.getStandardDepartment().deleteEmployee(employee);
+        setChanged();
+    }
 
 }

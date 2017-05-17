@@ -11,17 +11,11 @@ public class Manager extends Employee implements Leader{
     private String mail;
 
     //Constructors
-    public Manager(String name, String firstName, LocalDateTime startHour, LocalDateTime endHour, String mail) {
-        super(name, firstName, startHour, endHour);
+    public Manager(String name, String firstName, LocalDateTime startHour, LocalDateTime endHour, String mail,
+                   StandardDepartment standardDepartment) {
+        super(name, firstName, startHour, endHour, standardDepartment);
         this.mail = mail;
     }
-
-    // upgrade employee to manager
-    public Manager(Employee employee, String mail){
-        super(employee.getName(), employee.getFirstName(), employee.getStartHour(), employee.getEndHour());
-        this.mail = mail;
-    }
-
 
     //Getter and Setter
     @Override

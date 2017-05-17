@@ -1,6 +1,6 @@
 package model;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -9,13 +9,13 @@ import java.util.UUID;
  */
 public abstract class VirtualDepartment {
     private String name;
-    private HashMap<UUID, Employee> employeesList;
+    private ArrayList<Employee> employeesList;
     private Leader leader;
 
     //Constructor
     public VirtualDepartment(String name, Leader leader) {
         this.name = name;
-        this.employeesList = new HashMap<>();
+        this.employeesList = new ArrayList<>();
         this.leader = leader;
     }
 
@@ -24,7 +24,7 @@ public abstract class VirtualDepartment {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
@@ -32,7 +32,7 @@ public abstract class VirtualDepartment {
         return leader;
     }
 
-    public void setLeader(Leader leader) {
+    void setLeader(Leader leader) {
         this.leader = leader;
     }
 
@@ -42,39 +42,46 @@ public abstract class VirtualDepartment {
 
     public Employee getEmployeeByID(UUID id) throws IllegalArgumentException{
 
+        Employee result = null;//ne pas laisser un objet null tout seul soit lui attribuer valeur soit supprimer
+
         if(id == null){
             throw new IllegalArgumentException("ID null");
         }
-        Employee employee = employeesList.get(id);
-        if( employee == null){
-            throw new IllegalArgumentException("wrong ID");
+        for (Employee employee: employeesList) {
+            if(employee.getId().equals(id)){
+                result = employee;
+                break;
+            }
         }
-        return employee;
+
+        if( result == null){
+            throw new IllegalArgumentException("Wrong ID");
+        }
+        return result;
     }
 
-    public HashMap<UUID, Employee> getEmployeesList() {
+    public ArrayList<Employee> getEmployeesList() {
         return employeesList;
     }
 
 
 
     // Add and Delete from a list
-    public void addEmployee(Employee employee) throws IllegalArgumentException{
+    void addEmployee(Employee employee) throws IllegalArgumentException{
 
         if( employee == null){
-            throw new IllegalArgumentException("null argument");
+            throw new IllegalArgumentException("Null argument");
         }
-        employeesList.put(employee.getId(), employee);
+        employeesList.add(employee);
     }
 
-    public void deleteEmployee(Employee employee) throws IllegalArgumentException{
+    void deleteEmployee(Employee employee) throws IllegalArgumentException{
         if( employee == null){
-            throw new IllegalArgumentException("null argument");
+            throw new IllegalArgumentException("Null argument");
         }
-        if( employeesList.remove(employee.getId()) == null){
+        if(!employeesList.remove(employee)){
             throw new IllegalArgumentException("Employee not found");
         }
-        employeesList.remove(employee.getId());
     }
 
 
