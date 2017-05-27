@@ -11,6 +11,13 @@ public class StandardDepartment extends VirtualDepartment{
 
     public StandardDepartment(String name, Manager manager) {
         super(name, manager);
+        manager.setStandardDepartment(this);
+    }
+
+    @Override
+    void addEmployee(Employee employee) throws IllegalArgumentException {
+        super.addEmployee(employee);
+        employee.setStandardDepartment(this);
     }
 
     @Override

@@ -22,8 +22,10 @@ public class CompanyTest {
     public void setUp() throws Exception {
         boss = new Boss("Ronan", "Guillaume", "ronan.guilaume@apple.com");
         company = new Company("RONAN INC", boss);
-        manager = new Manager("Alphonse", "Guillaume", LocalDateTime.of(1,1,1,1,1,1), LocalDateTime.of(1,1,1,1,1,1), "alphonse.guillaume@apple.com");
         standardDepartment = new StandardDepartment("Design", manager);
+        manager = new Manager("Alphonse", "Guillaume", LocalDateTime.of(1,1,1,1,1,1),
+                LocalDateTime.of(1,1,1,1,1,1), "alphonse.guillaume@apple.com");
+
 
     }
 

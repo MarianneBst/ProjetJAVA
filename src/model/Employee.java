@@ -22,14 +22,13 @@ public class Employee extends Person{
 
 
     // Constructor
-    public Employee(String name, String firstName, LocalDateTime startHour, LocalDateTime endHour, StandardDepartment standardDepartment) {
+    public Employee(String name, String firstName, LocalDateTime startHour, LocalDateTime endHour) {
         super(name, firstName);
         tallies = new ArrayList<>();
         this.id = UUID.randomUUID();
         this.startHour = startHour;
         this.endHour = endHour;
         this.creditHour = LocalDateTime.of(0,1,1,0,0); // years 0, month 01, day 01, hour 00, minute 00
-        this.standardDepartment = standardDepartment;
     }
 
     // Getter and setter

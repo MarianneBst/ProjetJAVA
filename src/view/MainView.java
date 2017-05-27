@@ -13,7 +13,6 @@ import java.util.Observer;
  */
 public class MainView extends JFrame implements Observer {
     private JPanel mainPanel;
-    private JButton ronanButton;
     private JButton exitButton;
     private JTabbedPane tabbedPane1;
 
@@ -21,11 +20,8 @@ public class MainView extends JFrame implements Observer {
     public MainView(ActionListener actionListener){
         super("Start");
 
-        //Set margin
-        Border padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-        mainPanel.setBorder(padding);
         // def principal panel
-        setContentPane(mainPanel); // ou choisir l'autre méthode
+        setContentPane(mainPanel);
 
         if(actionListener != null){
             registerListener(actionListener);
@@ -38,6 +34,8 @@ public class MainView extends JFrame implements Observer {
             dispose();
             System.exit(0);
         });
+
+        tabbedPane1.add(new StaffManagementJPanel());
 
         setVisible(true);
 
@@ -63,7 +61,7 @@ public class MainView extends JFrame implements Observer {
 
     // all button or frame where it action use the model
     public void registerListener(ActionListener actionListener) {
-        ronanButton.addActionListener(actionListener);
+
     }
 
     @Override

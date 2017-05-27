@@ -20,8 +20,8 @@ public class VirtualDepartmentTest {
 
     @Before
     public void setUp() throws Exception{
-        manager = new Manager("Rene", "Guillaume", LocalDateTime.of(1,1,1,1,1,1), LocalDateTime.of(1,1,1,1,1,1), "rene.guillaume@apple.com");
         department = new StandardDepartment("Informatique", manager);
+        manager = new Manager("Rene", "Guillaume", LocalDateTime.of(1,1,1,1,1,1), LocalDateTime.of(1,1,1,1,1,1), "rene.guillaume@apple.com");
         employee = new Employee("Ronan","Guillaume", LocalDateTime.of(1,1,1,1,1,1), LocalDateTime.of(1,1,1,1,1,1));
 
     }

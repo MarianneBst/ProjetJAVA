@@ -11,9 +11,8 @@ public class Manager extends Employee implements Leader{
     private String mail;
 
     //Constructors
-    public Manager(String name, String firstName, LocalDateTime startHour, LocalDateTime endHour, String mail,
-                   StandardDepartment standardDepartment) {
-        super(name, firstName, startHour, endHour, standardDepartment);
+    public Manager(String name, String firstName, LocalDateTime startHour, LocalDateTime endHour, String mail) {
+        super(name, firstName, startHour, endHour);
         this.mail = mail;
     }
 
