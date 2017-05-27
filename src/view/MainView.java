@@ -15,6 +15,8 @@ public class MainView extends JFrame implements Observer {
     private JPanel mainPanel;
     private JButton exitButton;
     private JTabbedPane tabbedPane1;
+    private StaffManagementJPanel staffManagementJPanel;
+    private DptManagementJPanel dptManagementJPanel;
 
     //constructor,
     public MainView(ActionListener actionListener){
@@ -26,6 +28,15 @@ public class MainView extends JFrame implements Observer {
         if(actionListener != null){
             registerListener(actionListener);
         }
+
+        // création des onglets
+        staffManagementJPanel = new StaffManagementJPanel();
+        dptManagementJPanel = new DptManagementJPanel();
+
+        //ajout des onglets dans le panel qui doit les contenir
+        tabbedPane1.add(staffManagementJPanel);
+        tabbedPane1.add(dptManagementJPanel);
+
         //set minimum size and set the position
         improvePlacement();
 
@@ -35,11 +46,11 @@ public class MainView extends JFrame implements Observer {
             System.exit(0);
         });
 
-        tabbedPane1.add(new StaffManagementJPanel());
-
+        //pour que la fenetre s'affiche à l'ecran
         setVisible(true);
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // ?
+        // ce qu'il se passe quand on appuie sur la croix
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     // set minimum size and set the position
