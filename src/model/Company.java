@@ -2,9 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Observable;
-import java.util.UUID;
 
 /**
  * Created by Marianne
@@ -87,6 +85,9 @@ public class Company extends Observable implements Serializable {
         return result;
     }
 
+    public ArrayList<StandardDepartment> getStandardDepartmentList() {
+        return standardDepartmentList;
+    }
 
     // Add and Delete from list
     public void addStandardDepartment(StandardDepartment department) throws IllegalArgumentException{

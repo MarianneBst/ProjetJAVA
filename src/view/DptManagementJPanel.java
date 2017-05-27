@@ -1,7 +1,10 @@
 package view;
 
+import model.Company;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * Created by Marianne
@@ -14,8 +17,9 @@ public class DptManagementJPanel extends JPanel{
     private JButton modifyButton;
     private JTable departmentTable;
     private DptTableModel dptTableModel;
+    private DptJDialog dptJDialog;
 
-    public DptManagementJPanel() {
+    public DptManagementJPanel(ActionListener actionListener) {
         super();
         //taille min de la fenetre de cet onglet
         setSize(600, 400);
@@ -34,6 +38,11 @@ public class DptManagementJPanel extends JPanel{
         dptTableModel = new DptTableModel();
         departmentTable.setModel(dptTableModel);
 
+        addButton.addActionListener(e -> {
+            dptJDialog = new DptJDialog(actionListener, null);
+            dptJDialog.setVisible(true);
+        });
+
         //regarde si il y a une selection et dégrise les boutons
         ListSelectionModel listSelectionModel = departmentTable.getSelectionModel();
         listSelectionModel.addListSelectionListener(e -> {
@@ -49,5 +58,13 @@ public class DptManagementJPanel extends JPanel{
             boolean isOnlyOneSelection = isSelection && selection.length == 1;
             modifyButton.setEnabled(isOnlyOneSelection);
         });
+    }
+
+    public DptJDialog getDptJDialog() {
+        return dptJDialog;
+    }
+
+    public void myUpdate(Company company) {
+        dptTableModel.setDataDpt(company.getStandardDepartmentList());
     }
 }

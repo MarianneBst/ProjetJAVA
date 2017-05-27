@@ -65,7 +65,7 @@
             <properties/>
             <border type="none" title="Department"/>
             <children>
-              <component id="340e9" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+              <component id="340e9" class="javax.swing.JTextField" binding="departmentNameTextField">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -99,7 +99,7 @@
                   <text value="FirstName :"/>
                 </properties>
               </component>
-              <component id="bbd38" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+              <component id="bbd38" class="javax.swing.JTextField" binding="firstNameTextField">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="6" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -115,7 +115,7 @@
                   <text value="Name : "/>
                 </properties>
               </component>
-              <component id="854bd" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+              <component id="854bd" class="javax.swing.JTextField" binding="nameTextField">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="6" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -131,7 +131,7 @@
                   <text value="Email : "/>
                 </properties>
               </component>
-              <component id="f2b8f" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+              <component id="f2b8f" class="javax.swing.JTextField" binding="emailTextField">
                 <constraints>
                   <grid row="2" column="1" row-span="1" col-span="6" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -171,7 +171,7 @@
                   <text value="Hour :"/>
                 </properties>
               </component>
-              <component id="8c2aa" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+              <component id="8c2aa" class="javax.swing.JComboBox" binding="startHourComboBox">
                 <constraints>
                   <grid row="3" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -212,7 +212,7 @@
                   <text value="Minute : "/>
                 </properties>
               </component>
-              <component id="2cc7f" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+              <component id="2cc7f" class="javax.swing.JComboBox" binding="startMinuteComboBox">
                 <constraints>
                   <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -225,7 +225,7 @@
                   </model>
                 </properties>
               </component>
-              <component id="bc805" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+              <component id="bc805" class="javax.swing.JComboBox" binding="endHourComboBox">
                 <constraints>
                   <grid row="4" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -266,7 +266,7 @@
                   <text value="Minute : "/>
                 </properties>
               </component>
-              <component id="b8efd" class="javax.swing.JComboBox" binding="comboBox4" default-binding="true">
+              <component id="b8efd" class="javax.swing.JComboBox" binding="endMinuteComboBox">
                 <constraints>
                   <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>

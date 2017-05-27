@@ -1,7 +1,9 @@
 package view;
 
+import model.Company;
+import model.StandardDepartment;
+
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -31,7 +33,7 @@ public class MainView extends JFrame implements Observer {
 
         // création des onglets
         staffManagementJPanel = new StaffManagementJPanel();
-        dptManagementJPanel = new DptManagementJPanel();
+        dptManagementJPanel = new DptManagementJPanel(actionListener);
 
         //ajout des onglets dans le panel qui doit les contenir
         tabbedPane1.add(staffManagementJPanel);
@@ -75,8 +77,13 @@ public class MainView extends JFrame implements Observer {
 
     }
 
+    public StandardDepartment getDepartmentCreated(){
+        return dptManagementJPanel.getDptJDialog().getDptInputs();
+    }
+
     @Override
     public void update(Observable o, Object arg) {
-
+        Company company = (Company) o;
+        dptManagementJPanel.myUpdate(company);
     }
 }
