@@ -31,6 +31,17 @@ public class Employee extends Person{
         this.creditHour = LocalDateTime.of(0,1,1,0,0); // years 0, month 01, day 01, hour 00, minute 00
     }
 
+    public Employee(String name, String firstName, LocalDateTime startHour, LocalDateTime endHour, StandardDepartment department) {
+        super(name, firstName);
+        tallies = new ArrayList<>();
+        this.id = UUID.randomUUID();
+        this.startHour = startHour;
+        this.endHour = endHour;
+        this.creditHour = LocalDateTime.of(0,1,1,0,0);
+        standardDepartment = department;
+
+    }
+
     // Getter and setter
     public UUID getId() {
         return id;

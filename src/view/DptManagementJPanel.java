@@ -38,6 +38,7 @@ public class DptManagementJPanel extends JPanel{
         dptTableModel = new DptTableModel();
         departmentTable.setModel(dptTableModel);
 
+        //??
         addButton.addActionListener(e -> {
             dptJDialog = new DptJDialog(actionListener, null);
             dptJDialog.setVisible(true);
@@ -66,5 +67,6 @@ public class DptManagementJPanel extends JPanel{
 
     public void myUpdate(Company company) {
         dptTableModel.setDataDpt(company.getStandardDepartmentList());
+        //setDataEmployee
     }
 }

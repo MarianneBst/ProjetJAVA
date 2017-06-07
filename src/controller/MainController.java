@@ -16,7 +16,7 @@ public class MainController implements ActionListener {
 
     public MainController(Company company) {
         this.company = company;
-        this.mainView = new MainView(this);
+        this.mainView = new MainView(this, company.getStandardDepartmentList());
         company.addObserver(mainView);
     }
 
@@ -29,9 +29,16 @@ public class MainController implements ActionListener {
             case "Add Dpt":
                 company.addStandardDepartment(mainView.getDepartmentCreated());
                 break;
+            case "Add Employee":
+                company.addEmployeeIntoStandardDpt(mainView.getEmployeeCreated());
+                break;
+            case "Modif Employee":
+                company.modifyEmployee(mainView.getEmployeeToModify(), mainView.getEmployeeCreated());
+                break;
+            case "Remove Employee":
+                company.removeEmployeeFromStandardDpt(mainView.getEmployeesSelected());
         }
         company.notifyObservers();
-        System.out.println("Ronan c'est le meilleur ♥ ");
 
 
     }

@@ -97,6 +97,7 @@ public class Company extends Observable implements Serializable {
         }
 
         standardDepartmentList.add(department);
+        managementDepartment.addEmployee((Manager) department.getLeader());
         setChanged();
     }
 
@@ -119,6 +120,16 @@ public class Company extends Observable implements Serializable {
     }
     public void removeEmployeeFromStandardDpt(Employee employee){
         employee.getStandardDepartment().deleteEmployee(employee);
+        setChanged();
+    }
+
+    public void modifyEmployee(Employee employeeToModify, Employee newEmployee){
+        employeeToModify.setStandardDepartment(newEmployee.getStandardDepartment());
+        employeeToModify.setCreditHour(newEmployee.getCreditHour());
+        employeeToModify.setEndHour(newEmployee.getEndHour());
+        employeeToModify.setStartHour(newEmployee.getStartHour());
+        employeeToModify.setName(newEmployee.getName());
+        employeeToModify.setFirstName(newEmployee.getFirstName());
         setChanged();
     }
 

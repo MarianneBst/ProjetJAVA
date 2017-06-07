@@ -22,7 +22,7 @@ public class StandardDepartment extends VirtualDepartment{
 
     @Override
     public String toString() {
-        return "StandardDepartment" + super.toString();
+        return getName();
     }
 
 

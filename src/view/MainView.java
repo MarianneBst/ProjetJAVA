@@ -1,11 +1,14 @@
 package view;
 
 import model.Company;
+import model.Employee;
+import model.Manager;
 import model.StandardDepartment;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,9 +22,10 @@ public class MainView extends JFrame implements Observer {
     private JTabbedPane tabbedPane1;
     private StaffManagementJPanel staffManagementJPanel;
     private DptManagementJPanel dptManagementJPanel;
+    private ArrayList<StandardDepartment> standardDepartmentList;
 
     //constructor,
-    public MainView(ActionListener actionListener){
+    public MainView(ActionListener actionListener, ArrayList<StandardDepartment> standardDepartmentList){
         super("Start");
 
         // def principal panel
@@ -31,8 +35,10 @@ public class MainView extends JFrame implements Observer {
             registerListener(actionListener);
         }
 
+        this.standardDepartmentList = standardDepartmentList;
+
         // création des onglets
-        staffManagementJPanel = new StaffManagementJPanel();
+        staffManagementJPanel = new StaffManagementJPanel(actionListener, standardDepartmentList);
         dptManagementJPanel = new DptManagementJPanel(actionListener);
 
         //ajout des onglets dans le panel qui doit les contenir
@@ -81,9 +87,23 @@ public class MainView extends JFrame implements Observer {
         return dptManagementJPanel.getDptJDialog().getDptInputs();
     }
 
+    public Employee getEmployeeCreated(){
+        return staffManagementJPanel.getEmployeeJDialog().getEmployeeInputs();
+    }
+
+    //appeler quand model changer (avec setChanged -> qd controller appel model)
     @Override
     public void update(Observable o, Object arg) {
         Company company = (Company) o;
         dptManagementJPanel.myUpdate(company);
+        staffManagementJPanel.myUpdate(company);
+    }
+
+    public Employee getEmployeeToModify() {
+        return staffManagementJPanel.getSelectedEmployee();
+    }
+
+    public Employee getEmployeesSelected(){
+        return staffManagementJPanel.getSelectedEmployee();
     }
 }
