@@ -57,9 +57,8 @@ public class StaffManagementJPanel extends JPanel{
         });
 
         //definition du bouton remove
-        removeButton.addActionListener(e-> {
-            removeButton.setActionCommand("Remove Employee");
-        });
+        removeButton.setActionCommand("Remove Employee");
+        removeButton.addActionListener(actionListener);
 
         //regarde si il y a une selection et dégrise les boutons
         ListSelectionModel listSelectionModel = employeeTable.getSelectionModel();
@@ -90,5 +89,13 @@ public class StaffManagementJPanel extends JPanel{
 
     public Employee getSelectedEmployee() {
         return staffTableModel.getElementAt(employeeTable.getSelectedRow());
+    }
+
+    public ArrayList<Employee> getSelectedEmployees() {
+        ArrayList<Employee> result = new ArrayList<>();
+        for (int index : employeeTable.getSelectedRows()) {
+            result.add(staffTableModel.getElementAt(index));
+        }
+        return result;
     }
 }

@@ -8,9 +8,7 @@ import model.StandardDepartment;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 /**
  * Created by Marianne
@@ -103,7 +101,7 @@ public class MainView extends JFrame implements Observer {
         return staffManagementJPanel.getSelectedEmployee();
     }
 
-    public Employee getEmployeesSelected(){
-        return staffManagementJPanel.getSelectedEmployee();
+    public ArrayList<Employee> getEmployeesSelected(){
+        return staffManagementJPanel.getSelectedEmployees();
     }
 }
