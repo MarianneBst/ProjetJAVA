@@ -4,6 +4,7 @@ import model.Employee;
 import model.StandardDepartment;
 
 import javax.swing.table.AbstractTableModel;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -70,14 +71,13 @@ public class StaffTableModel extends AbstractTableModel {
             case 3 :
                 return dataEmployee.get(rowIndex).getStandardDepartment();
             case 4 :
-                //return dataEmployee.get(rowIndex).getStartHour();
                 return LocalTime.of(dataEmployee.get(rowIndex).getStartHour().getHour(),
                         dataEmployee.get(rowIndex).getStartHour().getMinute());
             case 5 :
                 return LocalTime.of(dataEmployee.get(rowIndex).getEndHour().getHour(),
                         dataEmployee.get(rowIndex).getEndHour().getMinute());
             case 6 :
-                return LocalTime.of(dataEmployee.get(rowIndex).getCreditHour().getDayOfMonth(), dataEmployee.get(rowIndex).getCreditHour().getHour(),
+                return LocalTime.of(dataEmployee.get(rowIndex).getCreditHour().getHour(),
                         dataEmployee.get(rowIndex).getCreditHour().getMinute());
             default: return null;
         }

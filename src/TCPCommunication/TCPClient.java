@@ -59,7 +59,7 @@ public class TCPClient extends Thread{
      */
     public void sendData(Tally data) {
         try{
-            socket = new Socket("localhost",8080);
+            socket = new Socket("localhost",8000);
 
             OutputStream outputStream = socket.getOutputStream();
             outputStream.write(0);

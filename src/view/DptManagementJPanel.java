@@ -4,8 +4,11 @@ import model.Company;
 import model.StandardDepartment;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
@@ -52,6 +55,24 @@ public class DptManagementJPanel extends JPanel{
         sorter = new TableRowSorter<DptTableModel>(dptTableModel);
         departmentTable.setRowSorter(sorter);
 
+        //ajoute un listener au textfield
+        filterText.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                newFilter();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                newFilter();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                newFilter();
+            }
+        });
+
         //??
         addButton.addActionListener(e -> {
             dptJDialog = new DptJDialog(actionListener, null);
@@ -81,6 +102,7 @@ public class DptManagementJPanel extends JPanel{
             boolean isOnlyOneSelection = isSelection && selection.length == 1;
             modifyButton.setEnabled(isOnlyOneSelection);
         });
+
     }
 
     /**
@@ -127,7 +149,7 @@ public class DptManagementJPanel extends JPanel{
     private void newFilter() {
         RowFilter<DptTableModel, Object> rf = null;
         try {
-            rf = RowFilter.regexFilter(filterText.getText(),0);
+            rf = RowFilter.regexFilter("(?i)" + filterText.getText(),0);
         } catch (java.util.regex.PatternSyntaxException e) {
             return;
         }

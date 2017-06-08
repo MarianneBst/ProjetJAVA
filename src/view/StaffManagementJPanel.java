@@ -5,6 +5,9 @@ import model.Employee;
 import model.StandardDepartment;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,9 +22,11 @@ public class StaffManagementJPanel extends JPanel{
     private JButton modifyButton;
     private JButton addButton;
     private JPanel mainStaffPanel;
+    private JTextField filterText;
     private StaffTableModel staffTableModel;
     private StaffJDialog employeeJDialog;
     private ArrayList<StandardDepartment> standardDepartmentList;
+    private TableRowSorter sorter;
 
     /**
      * Instantiates a new Staff management j panel.
@@ -51,6 +56,28 @@ public class StaffManagementJPanel extends JPanel{
         staffTableModel = new StaffTableModel();
         employeeTable.setModel(staffTableModel);
         this.standardDepartmentList = standardDepartmentList;
+
+        //créer un fliter
+        sorter = new TableRowSorter<StaffTableModel>(staffTableModel);
+        employeeTable.setRowSorter(sorter);
+
+        //ajoute un listener au textfield
+        filterText.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                newFilter();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                newFilter();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                newFilter();
+            }
+        });
 
         //?? on definit le bouton addbutton et on ajouter le controller (actionListener)
         addButton.addActionListener(e -> {
@@ -130,5 +157,15 @@ public class StaffManagementJPanel extends JPanel{
             result.add(staffTableModel.getElementAt(index));
         }
         return result;
+    }
+
+    private void newFilter() {
+        RowFilter<StaffTableModel, Object> rf = null;
+        try {
+            rf = RowFilter.regexFilter("(?i)" + filterText.getText(),1);
+        } catch (java.util.regex.PatternSyntaxException e) {
+            return;
+        }
+        sorter.setRowFilter(rf);
     }
 }

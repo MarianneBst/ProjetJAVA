@@ -1,9 +1,12 @@
 package view;
 
+import model.StandardDepartment;
 import model.Tally;
 
 import javax.swing.table.AbstractTableModel;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -12,7 +15,7 @@ import java.util.UUID;
  * on 08/06/2017.
  */
 public class TallyTableModel extends AbstractTableModel {
-    private String[] header = {"Id", "Name","First name", "Date", "Hour"};
+    private String[] header = {"Id", "Name","First name", "Date", "Hour", "Department"};
     private ArrayList<Tally> dataTally;
 
     /**
@@ -38,6 +41,9 @@ public class TallyTableModel extends AbstractTableModel {
         if(columnIndex == 3 || columnIndex == 4){
             return LocalDateTime.class;
         }
+        if(columnIndex == 5){
+            return StandardDepartment.class;
+        }
         else return null;
     }
 
@@ -61,9 +67,14 @@ public class TallyTableModel extends AbstractTableModel {
             case 2 :
                 return dataTally.get(rowIndex).getEmployee().getFirstName();
             case 3 :
-                return dataTally.get(rowIndex).getCheckDate();
+                return LocalDate.of(dataTally.get(rowIndex).getCheckDate().getYear(),
+                        dataTally.get(rowIndex).getCheckDate().getMonth(),
+                        dataTally.get(rowIndex).getCheckDate().getDayOfMonth());
             case 4 :
-                return dataTally.get(rowIndex).getCheckDate();
+                return LocalTime.of(dataTally.get(rowIndex).getCheckDate().getHour(),
+                    dataTally.get(rowIndex).getCheckDate().getMinute());
+            case 5 :
+                return dataTally.get(rowIndex).getEmployee().getStandardDepartment();
             default: return null;
         }
 

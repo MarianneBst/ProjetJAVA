@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -140,10 +141,31 @@ public class Employee extends Person implements Serializable{
      * @param tally the tally
      */
     void addTally(Tally tally){
-        // TODO: 10/04/2017 Update credits
+        LocalDateTime checkDate = tally.getCheckDate(); //le check
+        LocalDateTime formerCredit = getCreditHour(); // l'ancien credit
+
+        //passage des valeurs en minutes
+        int minStartHour = startHour.getHour()*60 + startHour.getMinute();
+        int minEndHour = endHour.getHour()*60 + endHour.getMinute();
+        int minCheckDate = checkDate.getHour()*60 + checkDate.getMinute();
+        int minFormerCredit = formerCredit.getHour()*60 + formerCredit.getMinute();
+        int tmpStart = 0, tmpEnd = 0, tmpCredit = 0;
+
+        // si Check IN
+        if(tallies.size()%2 == 0){
+//            tmpStart = minStartHour - minCheckDate;
+//            tmpCredit = tmpStart + minFormerCredit;
+
+        }
+        else{
+//            tmpEnd = minCheckDate - minEndHour;
+//            tmpCredit = tmpEnd + minFormerCredit;
+
+        }
 
         tally.setEmployee(this);
         tallies.add(tally);
+
     }
 
     /**

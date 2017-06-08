@@ -214,7 +214,6 @@ public class Company extends Observable implements Serializable {
      */
     public void modifyEmployee(Employee employeeToModify, Employee newEmployee){
         employeeToModify.setStandardDepartment(newEmployee.getStandardDepartment());
-        employeeToModify.setCreditHour(newEmployee.getCreditHour());
         employeeToModify.setEndHour(newEmployee.getEndHour());
         employeeToModify.setStartHour(newEmployee.getStartHour());
         employeeToModify.setName(newEmployee.getName());
