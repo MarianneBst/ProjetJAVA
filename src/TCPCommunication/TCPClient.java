@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * The type Tcp client.
  *
  * @author Marianne
- * @since 30 /05/2017
+ * @since 01/06/2017
  */
 public class TCPClient extends Thread{
     private Socket socket;
@@ -34,7 +34,7 @@ public class TCPClient extends Thread{
         ArrayList<Employee> datas = new ArrayList<>();
 
         try {
-            socket = new Socket("localhost",8080);
+            socket = new Socket("localhost",8000);
 
             OutputStream outputStream = socket.getOutputStream();
             outputStream.write(1); //on écrit 1 pour demander un update des données.

@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * The type Tcp server.
  *
  * @author Mrianne
- * @since 30 /05/2017
+ * @since 01/06/2017
  */
 public class TCPServer implements Runnable{
     private static ServerSocket serverSocket;
@@ -38,7 +38,7 @@ public class TCPServer implements Runnable{
     public TCPServer(Company company){
         try {
             this.company = company;
-            serverSocket = new ServerSocket(8080);
+            serverSocket = new ServerSocket(8000);
         } catch (IOException e) {
             e.printStackTrace();
         }

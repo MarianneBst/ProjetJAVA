@@ -4,6 +4,7 @@ import model.Company;
 import model.StandardDepartment;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -18,8 +19,10 @@ public class DptManagementJPanel extends JPanel{
     private JButton addButton;
     private JButton modifyButton;
     private JTable departmentTable;
+    private JTextField filterText;
     private DptTableModel dptTableModel;
     private DptJDialog dptJDialog;
+    private TableRowSorter sorter;
 
     /**
      * Instantiates a new Dpt management j panel.
@@ -44,6 +47,10 @@ public class DptManagementJPanel extends JPanel{
         //instancie dptTableModel
         dptTableModel = new DptTableModel();
         departmentTable.setModel(dptTableModel);
+
+        //créer un fliter
+        sorter = new TableRowSorter<DptTableModel>(dptTableModel);
+        departmentTable.setRowSorter(sorter);
 
         //??
         addButton.addActionListener(e -> {
@@ -115,5 +122,15 @@ public class DptManagementJPanel extends JPanel{
             result.add(dptTableModel.getElementAt(index));
         }
         return result;
+    }
+
+    private void newFilter() {
+        RowFilter<DptTableModel, Object> rf = null;
+        try {
+            rf = RowFilter.regexFilter(filterText.getText(),0);
+        } catch (java.util.regex.PatternSyntaxException e) {
+            return;
+        }
+        sorter.setRowFilter(rf);
     }
 }

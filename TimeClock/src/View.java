@@ -6,9 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * The type View.
@@ -40,8 +44,15 @@ public class View extends JFrame{
             clockLabel.setText(clockFormat.format(LocalDateTime.now()));
             dateLabel.setText(dateFormat.format(LocalDateTime.now()));
 
-            // TODO: 08/06/2017 Arrondir
-            myClockLabel.setText(myClockFormat.format(LocalDateTime.now()));
+            // Arrondis
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date());
+            int round = calendar.get(Calendar.MINUTE) % 15;
+            calendar.add(Calendar.MINUTE, round < 8 ? -round : (15-round));
+            calendar.set( Calendar.SECOND, 0 );
+            SimpleDateFormat format1 = new SimpleDateFormat("HH:mm");
+
+            myClockLabel.setText(format1.format(calendar.getTime()));
         }
     }
 
