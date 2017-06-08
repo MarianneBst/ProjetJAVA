@@ -61,7 +61,7 @@ public class EmployeeCSV {
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-                EmployeeDAO employeeDAO = new EmployeeDAO(name, firstName, UUID.fromString(idStr), LocalDateTime.parse("1900-01-01 " + startHourStr, formatter), LocalDateTime.parse("1900-01-01 " + endHourStr, formatter), LocalDateTime.parse("1900-01-01 " + creditStr, formatter), dpt);
+                EmployeeDAO employeeDAO = new EmployeeDAO(name, firstName, UUID.fromString(idStr), LocalDateTime.parse("1900-01-01 " + startHourStr, formatter), LocalDateTime.parse("1900-01-01 " + endHourStr, formatter), Integer.parseInt(creditStr), dpt);
                 employees.add(employeeDAO);
             }
 

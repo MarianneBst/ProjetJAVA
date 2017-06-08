@@ -15,7 +15,7 @@ public class Employee extends Person implements Serializable{
     private UUID id;
     private LocalDateTime startHour;
     private LocalDateTime endHour;
-    private LocalDateTime creditHour;
+    private int creditHour;
     private ArrayList<Tally> tallies; //all tallies of the day, list of object Tally
     private StandardDepartment standardDepartment;
 
@@ -35,10 +35,10 @@ public class Employee extends Person implements Serializable{
         this.id = UUID.randomUUID();
         this.startHour = startHour;
         this.endHour = endHour;
-        this.creditHour = LocalDateTime.of(0,1,1,0,0); // years 0, month 01, day 01, hour 00, minute 00
+        this.creditHour = 0;
     }
 
-    public Employee(String name, String firstName, UUID id, LocalDateTime startHour, LocalDateTime endHour, LocalDateTime creditHour, StandardDepartment standardDepartment) {
+    public Employee(String name, String firstName, UUID id, LocalDateTime startHour, LocalDateTime endHour, int creditHour, StandardDepartment standardDepartment) {
         super(name, firstName);
         this.id = id;
         this.startHour = startHour;
@@ -63,7 +63,7 @@ public class Employee extends Person implements Serializable{
         this.id = UUID.randomUUID();
         this.startHour = startHour;
         this.endHour = endHour;
-        this.creditHour = LocalDateTime.of(0,1,1,0,0);
+        this.creditHour = 0;
         standardDepartment = department;
 
     }
@@ -93,7 +93,7 @@ public class Employee extends Person implements Serializable{
      *
      * @return the credit hour
      */
-    public LocalDateTime getCreditHour() {
+    public int getCreditHour() {
 
         return creditHour;
     }
@@ -141,7 +141,7 @@ public class Employee extends Person implements Serializable{
      *
      * @param creditHour the credit hour
      */
-    void setCreditHour(LocalDateTime creditHour) {
+    void setCreditHour(int creditHour) {
 
         this.creditHour = creditHour;
     }
@@ -153,27 +153,43 @@ public class Employee extends Person implements Serializable{
      */
     void addTally(Tally tally){
         LocalDateTime checkDate = tally.getCheckDate(); //le check
-        LocalDateTime formerCredit = getCreditHour(); // l'ancien credit
+        int formerCredit = getCreditHour(); // l'ancien credit
 
         //passage des valeurs en minutes
         int minStartHour = startHour.getHour()*60 + startHour.getMinute();
         int minEndHour = endHour.getHour()*60 + endHour.getMinute();
         int minCheckDate = checkDate.getHour()*60 + checkDate.getMinute();
-        int minFormerCredit = formerCredit.getHour()*60 + formerCredit.getMinute();
         int tmpStart = 0, tmpEnd = 0, tmpCredit = 0;
+        int tmpVrai = 0, tmpNorm = 0;
 
-        // si Check IN
-        if(tallies.size()%2 == 0){
+//        // si Check IN
+//        if(tallies.size()%2 == 0){
 //            tmpStart = minStartHour - minCheckDate;
-//            tmpCredit = tmpStart + minFormerCredit;
+//            tmpCredit = tmpStart + formerCredit;
+//        }
+//        else{
+//            tmpEnd = minCheckDate - minEndHour;
+//            tmpCredit = tmpEnd + formerCredit;
+//        }
 
+        if(tallies.size()%2 == 0){
+            tmpCredit = creditHour;
         }
         else{
-//            tmpEnd = minCheckDate - minEndHour;
-//            tmpCredit = tmpEnd + minFormerCredit;
-
+            tmpNorm = minEndHour - minStartHour;
+            if(tmpNorm < 0){
+                tmpNorm += 24*60;
+            }
+            Tally formerTally = getLastTally();
+            int minFormerTally = formerTally.getCheckDate().getHour()*60 + formerTally.getCheckDate().getMinute();
+            tmpVrai = minCheckDate - minFormerTally;
+            if(tmpVrai < 0){
+                tmpVrai += 24*60;
+            }
+            tmpCredit = tmpVrai - tmpNorm;
         }
 
+        creditHour += tmpCredit;
         tally.setEmployee(this);
         tallies.add(tally);
     }
@@ -217,7 +233,7 @@ public class Employee extends Person implements Serializable{
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
-        recordStr += getName() + "," + getFirstName() + "," + id.toString() + "," + startHour.format(formatter) + "," + endHour.format(formatter) + "," + creditHour.format(formatter) + "," + standardDepartment.getName();
+        recordStr += getName() + "," + getFirstName() + "," + id.toString() + "," + startHour.format(formatter) + "," + endHour.format(formatter) + "," + creditHour + "," + standardDepartment.getName();
         result = recordStr.split(",");
 
         return result;

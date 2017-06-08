@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -118,7 +119,12 @@ public class View extends JFrame{
             }
         }
         Employee employee = employeeDefaultComboBoxModel.getElementAt(i);
-        Tally tally=new Tally(employee, LocalDateTime.now());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+//        Tally tally=new Tally(employee, LocalDateTime.parse(LocalDate.now() + myClockLabel.getText(), formatter));
+        Tally tally=new Tally(employee, LocalDateTime.parse(LocalDate.now().format(formatter1) +" " + myClockLabel.getText(), formatter));
         clientSocket.sendData(tally);
     }
 }

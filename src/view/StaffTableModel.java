@@ -42,8 +42,11 @@ public class StaffTableModel extends AbstractTableModel {
         if(columnIndex == 3){
             return StandardDepartment.class;
         }
-        if(columnIndex == 4 || columnIndex == 5 || columnIndex == 6){
+        if(columnIndex == 4 || columnIndex == 5){
             return LocalDateTime.class;
+        }
+        if(columnIndex == 6){
+            return Integer.class;
         }
         else return null;
     }
@@ -77,8 +80,19 @@ public class StaffTableModel extends AbstractTableModel {
                 return LocalTime.of(dataEmployee.get(rowIndex).getEndHour().getHour(),
                         dataEmployee.get(rowIndex).getEndHour().getMinute());
             case 6 :
-                return LocalTime.of(dataEmployee.get(rowIndex).getCreditHour().getHour(),
-                        dataEmployee.get(rowIndex).getCreditHour().getMinute());
+                int minCredit = dataEmployee.get(rowIndex).getCreditHour();
+                String result = "";
+
+                if(minCredit < 0){
+                    result += "-";
+                    minCredit *= -1;
+                }
+                int resCredit = 0;
+                int tmpHour = 0, tmpMin = 0;
+
+                tmpHour = minCredit / 60;
+                tmpMin = minCredit - (tmpHour*60);
+                return result + tmpHour + " h "+ tmpMin;
             default: return null;
         }
 

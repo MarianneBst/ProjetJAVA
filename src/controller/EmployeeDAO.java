@@ -13,10 +13,10 @@ public class EmployeeDAO extends Person{
     private UUID id;
     private LocalDateTime startHour;
     private LocalDateTime endHour;
-    private LocalDateTime creditHour;
+    private int creditHour;
     private String standardDepartmentName;
 
-    public EmployeeDAO(String name, String firstName, UUID id, LocalDateTime startHour, LocalDateTime endHour, LocalDateTime creditHour, String standardDepartmentName) {
+    public EmployeeDAO(String name, String firstName, UUID id, LocalDateTime startHour, LocalDateTime endHour, int creditHour, String standardDepartmentName) {
         super(name, firstName);
         this.id = id;
         this.startHour = startHour;
@@ -37,7 +37,7 @@ public class EmployeeDAO extends Person{
         return endHour;
     }
 
-    public LocalDateTime getCreditHour() {
+    public int getCreditHour() {
         return creditHour;
     }
 
