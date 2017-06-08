@@ -92,7 +92,7 @@ public abstract class VirtualDepartment implements Serializable {
                 break;
             }
         }
-        if(((Employee)leader).getId().equals(id)){
+        if(((Employee)(leader)).getId().equals(id)){
             result = (Employee) leader;
         }
 

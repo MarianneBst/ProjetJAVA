@@ -23,6 +23,8 @@ public class StaffManagementJPanel extends JPanel{
     private JButton addButton;
     private JPanel mainStaffPanel;
     private JTextField filterText;
+    private JButton importCSVButton;
+    private JButton exportCSVButton;
     private StaffTableModel staffTableModel;
     private StaffJDialog employeeJDialog;
     private ArrayList<StandardDepartment> standardDepartmentList;
@@ -95,6 +97,11 @@ public class StaffManagementJPanel extends JPanel{
         //definition du bouton remove
         removeButton.setActionCommand("Remove Employee");
         removeButton.addActionListener(actionListener);
+
+        importCSVButton.setActionCommand("Import");
+        importCSVButton.addActionListener(actionListener);
+        exportCSVButton.setActionCommand("Export");
+        exportCSVButton.addActionListener(actionListener);
 
         //regarde si il y a une selection et dégrise les boutons
         ListSelectionModel listSelectionModel = employeeTable.getSelectionModel();

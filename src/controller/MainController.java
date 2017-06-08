@@ -1,6 +1,7 @@
 package controller;
 
 import TCPCommunication.TCPServer;
+import au.com.bytecode.opencsv.CSVWriter;
 import model.Company;
 import model.Employee;
 import model.StandardDepartment;
@@ -11,6 +12,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 /**
@@ -74,6 +76,12 @@ public class MainController implements ActionListener {
                 case "Save":
                     onSave();
                     break;
+                case "Import":
+                    onImport();
+                    break;
+                case "Export":
+                    onExport();
+                    break;
             }
             company.notifyObservers();
         }
@@ -83,6 +91,46 @@ public class MainController implements ActionListener {
                     exc.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void onExport() {
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter barFilter = new FileNameExtensionFilter(
+                "CVS file (*.csv)", "csv");
+        fileChooser.setFileFilter(barFilter);
+        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            try {
+                CSVWriter writer = new CSVWriter(new FileWriter(file.getPath() + ".csv"));
+
+                //Create record
+                for (Employee employee : company.getOnlyEmployees()) {
+                    String [] record = employee.getRecord();
+                    //Write the record to file
+                    writer.writeNext(record);
+                }
+                //close the writer
+                writer.close();
+            }catch (NoSuchElementException noSuchElementException) {
+                System.err.println("Invalid input.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void onImport() {
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter barFilter = new FileNameExtensionFilter(
+                "CSV file (*.csv)", "csv");
+        fileChooser.setFileFilter(barFilter);
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            ArrayList<EmployeeDAO> employeeDAOS = EmployeeCSV.findEmployees(file);
+            for (EmployeeDAO employeeDAO : employeeDAOS) {
+                company.addEmployeeIntoStandardDpt(new Employee(employeeDAO.getName(), employeeDAO.getFirstName(), employeeDAO.getId(), employeeDAO.getStartHour(), employeeDAO.getEndHour(), employeeDAO.getCreditHour(), company.getStandardDepartmentByName(employeeDAO.getStandardDepartmentName())));
+            }
         }
     }
 
