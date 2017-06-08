@@ -13,6 +13,9 @@ public class DptTableModel extends AbstractTableModel{
     private String[] header = {"Name", "Number of emloyees"};
     private ArrayList<StandardDepartment> dataDpt;
 
+    /**
+     * Instantiates a new Dpt table model.
+     */
     public DptTableModel() {
         this.dataDpt = new ArrayList<>();
     }
@@ -51,21 +54,40 @@ public class DptTableModel extends AbstractTableModel{
         }
     }
 
+    /**
+     * Get element at standard department.
+     *
+     * @param index the index
+     * @return the standard department
+     */
     public StandardDepartment getElementAt(int index){
         return dataDpt.get(index);
     }
 
+    /**
+     * Add dpt.
+     *
+     * @param standardDepartment the standard department
+     */
     public void addDpt(StandardDepartment standardDepartment){
         dataDpt.add(standardDepartment);
 
         fireTableRowsInserted(dataDpt.size()-1, dataDpt.size()-1);
     }
 
+    /**
+     * Remove dpt.
+     *
+     * @param index the index
+     */
     public void removeDpt(int index){
         dataDpt.remove(index);
         fireTableRowsDeleted(index, index);
     }
 
+    /**
+     * Remove all dpt.
+     */
     public void removeAllDpt(){
         while (dataDpt.size() != 0){
             removeDpt(0);
@@ -73,10 +95,20 @@ public class DptTableModel extends AbstractTableModel{
 
     }
 
+    /**
+     * Gets data dpt.
+     *
+     * @return the data dpt
+     */
     public ArrayList<StandardDepartment> getDataDpt() {
         return dataDpt;
     }
 
+    /**
+     * Sets data dpt.
+     *
+     * @param dataDpt the data dpt
+     */
     public void setDataDpt(ArrayList<StandardDepartment> dataDpt) {
         this.dataDpt = dataDpt;
         fireTableDataChanged();

@@ -17,6 +17,9 @@ public class StaffTableModel extends AbstractTableModel {
     private String[] header = {"ID", "Name", "Firstname", "Department", "Start Hour", "End Hour", "Credit Hour"};
     private ArrayList<Employee> dataEmployee;
 
+    /**
+     * Instantiates a new Staff table model.
+     */
     public StaffTableModel() {
         this.dataEmployee = new ArrayList<>();
     }
@@ -76,22 +79,41 @@ public class StaffTableModel extends AbstractTableModel {
 
     }
 
+    /**
+     * Get element at employee.
+     *
+     * @param index the index
+     * @return the employee
+     */
     public Employee getElementAt(int index){
         return dataEmployee.get(index);
     }
 
-    //A quoi servent ces fonctions ?????
+    /**
+     * Add employee.
+     *
+     * @param employee the employee
+     */
+//A quoi servent ces fonctions ?????
     public void addEmployee(Employee employee){
         dataEmployee.add(employee);
 
         fireTableRowsInserted(dataEmployee.size()-1, dataEmployee.size()-1);
     }
 
+    /**
+     * Remove employee.
+     *
+     * @param index the index
+     */
     public void removeEmployee(int index){
         dataEmployee.remove(index);
         fireTableRowsDeleted(index, index);
     }
 
+    /**
+     * Remove all employee.
+     */
     public void removeAllEmployee(){
         while (dataEmployee.size() != 0){
             removeEmployee(0);
@@ -99,10 +121,20 @@ public class StaffTableModel extends AbstractTableModel {
 
     }
 
+    /**
+     * Gets data employee.
+     *
+     * @return the data employee
+     */
     public ArrayList<Employee> getDataEmployee() {
         return dataEmployee;
     }
 
+    /**
+     * Sets data employee.
+     *
+     * @param dataEmployee the data employee
+     */
     public void setDataEmployee(ArrayList<Employee> dataEmployee) {
         this.dataEmployee = dataEmployee;
         fireTableDataChanged();

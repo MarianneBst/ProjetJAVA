@@ -9,6 +9,9 @@ import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The type Dpt j dialog.
+ */
 public class DptJDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
@@ -21,11 +24,30 @@ public class DptJDialog extends JDialog {
     private JComboBox startMinuteComboBox;
     private JComboBox endHourComboBox;
     private JComboBox endMinuteComboBox;
+    private JPanel managerPanel;
+    private StandardDepartment standardDepartment;
 
+    /**
+     * Instantiates a new Dpt j dialog.
+     *
+     * @param actionListener     the action listener
+     * @param standardDepartment the standard department
+     */
     public DptJDialog(ActionListener actionListener, StandardDepartment standardDepartment) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+
+        this.standardDepartment = standardDepartment;
+
+        if (standardDepartment == null){
+            setTitle("Add department");
+        }
+        else {
+            setTitle("Modify department");
+            managerPanel.setVisible(false);
+            departmentNameTextField.setText(standardDepartment.getName());
+        }
 
         //Set the frame on the middle screen
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -33,7 +55,12 @@ public class DptJDialog extends JDialog {
 
         pack();
 
-        buttonOK.setActionCommand("Add Dpt");
+        if (standardDepartment == null){
+            buttonOK.setActionCommand("Add Dpt");
+        }
+        else {
+            buttonOK.setActionCommand("Modify Dpt");
+        }
         buttonOK.addActionListener(actionListener);
         buttonOK.addActionListener(e -> dispose());
 
@@ -53,7 +80,25 @@ public class DptJDialog extends JDialog {
         dispose();
     }
 
-    StandardDepartment getDptInputs(){
+    /**
+     * Gets dpt inputs.
+     *
+     * @return the dpt inputs
+     * @throws IllegalArgumentException the illegal argument exception
+     */
+    StandardDepartment getDptInputs() throws IllegalArgumentException{
+        if ((nameTextField.getText().length() == 0 || firstNameTextField.getText().length() == 0
+                || emailTextField.getText().length() == 0 || departmentNameTextField.getText().length() == 0) && standardDepartment == null){
+            throw new IllegalArgumentException("You must fill all the textFields !");
+        }
+
+        if (standardDepartment != null){
+            if (departmentNameTextField.getText().length() == 0){
+                throw new IllegalArgumentException("You must enter a name !");
+            }
+            return new StandardDepartment(departmentNameTextField.getText(), new Manager());
+        }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         String startHourString = "1900-01-01 " + startHourComboBox.getSelectedItem()+":" +

@@ -23,6 +23,12 @@ public class StaffManagementJPanel extends JPanel{
     private StaffJDialog employeeJDialog;
     private ArrayList<StandardDepartment> standardDepartmentList;
 
+    /**
+     * Instantiates a new Staff management j panel.
+     *
+     * @param actionListener         the action listener
+     * @param standardDepartmentList the standard department list
+     */
     public StaffManagementJPanel(ActionListener actionListener, ArrayList<StandardDepartment> standardDepartmentList) {
         super();
         //taille min de la fenetre de cet onglet
@@ -37,6 +43,9 @@ public class StaffManagementJPanel extends JPanel{
         //grise les boutons
         modifyButton.setEnabled(false);
         removeButton.setEnabled(false);
+        if (standardDepartmentList.size() == 0){
+            addButton.setEnabled(false);
+        }
 
         //instancie dptTableModel
         staffTableModel = new StaffTableModel();
@@ -77,20 +86,44 @@ public class StaffManagementJPanel extends JPanel{
         });
     }
 
+    /**
+     * Gets employee j dialog.
+     *
+     * @return the employee j dialog
+     */
     public StaffJDialog getEmployeeJDialog() {
         return employeeJDialog;
     }
 
-    //met à jour la fenetre des employer depuis la liste dans le modele (à qui on vient d'ajouter un employer
+    /**
+     * My update.
+     *
+     * @param company the company
+     */
+//met à jour la fenetre des employer depuis la liste dans le modele (à qui on vient d'ajouter un employer
     // depuis la fenetre de dialogue
     public void myUpdate(Company company) {
         staffTableModel.setDataEmployee(company.getAllEmployees());
+        standardDepartmentList = company.getStandardDepartmentList();
+        if (standardDepartmentList.size() > 0){
+            addButton.setEnabled(true);
+        }
     }
 
+    /**
+     * Gets selected employee.
+     *
+     * @return the selected employee
+     */
     public Employee getSelectedEmployee() {
         return staffTableModel.getElementAt(employeeTable.getSelectedRow());
     }
 
+    /**
+     * Gets selected employees.
+     *
+     * @return the selected employees
+     */
     public ArrayList<Employee> getSelectedEmployees() {
         ArrayList<Employee> result = new ArrayList<>();
         for (int index : employeeTable.getSelectedRows()) {

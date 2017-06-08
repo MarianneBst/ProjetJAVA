@@ -1,19 +1,23 @@
 package model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Created by Marianne
  * on 11/04/2017.
  */
-public class Tally {
+public class Tally implements Serializable {
     private Employee employee;
     private LocalDateTime checkDate;
 
-    // Constructor
+    /**
+     * Instantiates a new Tally.
+     *
+     * @param employee  the employee
+     * @param checkDate the check date
+     */
+// Constructor
     public Tally(Employee employee, LocalDateTime checkDate) {
 
         this.employee = employee;
@@ -21,12 +25,31 @@ public class Tally {
 
     }
 
-    // Getter and Setter
+    /**
+     * Gets check date.
+     *
+     * @return the check date
+     */
+// Getter and Setter
     public LocalDateTime getCheckDate() {
         return checkDate;
     }
 
+    /**
+     * Gets employee.
+     *
+     * @return the employee
+     */
     public Employee getEmployee() {
         return employee;
+    }
+
+    /**
+     * Sets employee.
+     *
+     * @param employee the employee
+     */
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

@@ -1,14 +1,19 @@
 package model;
 
-import java.util.HashMap;
-import java.util.UUID;
+import java.io.Serializable;
 
 /**
  * Created by Marianne
  * on 04/04/2017.
  */
-public class StandardDepartment extends VirtualDepartment{
+public class StandardDepartment extends VirtualDepartment implements Serializable {
 
+    /**
+     * Instantiates a new Standard department.
+     *
+     * @param name    the name
+     * @param manager the manager
+     */
     public StandardDepartment(String name, Manager manager) {
         super(name, manager);
         manager.setStandardDepartment(this);

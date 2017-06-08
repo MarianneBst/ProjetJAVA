@@ -1,6 +1,7 @@
 package view;
 
 import model.Employee;
+import model.Manager;
 import model.StandardDepartment;
 
 import javax.swing.*;
@@ -10,6 +11,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * The type Staff j dialog.
+ */
 public class StaffJDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
@@ -22,6 +26,13 @@ public class StaffJDialog extends JDialog {
     private JComboBox comboBoxMinEndHour;
     private JComboBox<StandardDepartment> comboBoxDpt;
 
+    /**
+     * Instantiates a new Staff j dialog.
+     *
+     * @param actionListener the action listener
+     * @param employee       the employee
+     * @param departmentList the department list
+     */
     public StaffJDialog(ActionListener actionListener, Employee employee, ArrayList<StandardDepartment> departmentList) {
         setContentPane(contentPane);
         setModal(true);
@@ -51,6 +62,9 @@ public class StaffJDialog extends JDialog {
         }
 
         if(employee != null){
+            if (employee.getClass() == Manager.class){
+                comboBoxDpt.setEnabled(false);
+            }
             buttonOK.setActionCommand("Modif Employee");
             textFieldName.setText(employee.getName());
             textFieldFirstname.setText(employee.getFirstName());
@@ -68,7 +82,18 @@ public class StaffJDialog extends JDialog {
         dispose();
     }
 
-    Employee getEmployeeInputs(){
+    /**
+     * Gets employee inputs.
+     *
+     * @return the employee inputs
+     * @throws IllegalArgumentException the illegal argument exception
+     */
+    Employee getEmployeeInputs()throws IllegalArgumentException{
+        if (textFieldName.getText().length() == 0 || textFieldFirstname.getText().length() == 0){
+            throw new IllegalArgumentException("You must fill all the textFields !");
+        }
+
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         //on récupère la start hour selon le format formatter

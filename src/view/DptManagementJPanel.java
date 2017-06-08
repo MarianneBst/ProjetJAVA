@@ -1,10 +1,12 @@
 package view;
 
 import model.Company;
+import model.StandardDepartment;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created by Marianne
@@ -19,6 +21,11 @@ public class DptManagementJPanel extends JPanel{
     private DptTableModel dptTableModel;
     private DptJDialog dptJDialog;
 
+    /**
+     * Instantiates a new Dpt management j panel.
+     *
+     * @param actionListener the action listener
+     */
     public DptManagementJPanel(ActionListener actionListener) {
         super();
         //taille min de la fenetre de cet onglet
@@ -44,6 +51,14 @@ public class DptManagementJPanel extends JPanel{
             dptJDialog.setVisible(true);
         });
 
+        modifyButton.addActionListener(e -> {
+            dptJDialog = new DptJDialog(actionListener, dptTableModel.getElementAt(departmentTable.getSelectedRow()));
+            dptJDialog.setVisible(true);
+        });
+
+        removeButton.setActionCommand("Remove Dpt");
+        removeButton.addActionListener(actionListener);
+
         //regarde si il y a une selection et dégrise les boutons
         ListSelectionModel listSelectionModel = departmentTable.getSelectionModel();
         listSelectionModel.addListSelectionListener(e -> {
@@ -61,12 +76,44 @@ public class DptManagementJPanel extends JPanel{
         });
     }
 
+    /**
+     * Gets dpt j dialog.
+     *
+     * @return the dpt j dialog
+     */
     public DptJDialog getDptJDialog() {
         return dptJDialog;
     }
 
+    /**
+     * My update.
+     *
+     * @param company the company
+     */
     public void myUpdate(Company company) {
         dptTableModel.setDataDpt(company.getStandardDepartmentList());
         //setDataEmployee
+    }
+
+    /**
+     * Gets selected dpt.
+     *
+     * @return the selected dpt
+     */
+    public StandardDepartment getSelectedDpt() {
+        return dptTableModel.getElementAt(departmentTable.getSelectedRow());
+    }
+
+    /**
+     * Gets selected dpts.
+     *
+     * @return the selected dpts
+     */
+    public ArrayList<StandardDepartment> getSelectedDpts() {
+        ArrayList<StandardDepartment> result = new ArrayList<>();
+        for (int index : departmentTable.getSelectedRows()) {
+            result.add(dptTableModel.getElementAt(index));
+        }
+        return result;
     }
 }
