@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -34,6 +35,16 @@ public class Employee extends Person implements Serializable{
         this.startHour = startHour;
         this.endHour = endHour;
         this.creditHour = LocalDateTime.of(0,1,1,0,0); // years 0, month 01, day 01, hour 00, minute 00
+    }
+
+    public Employee(String name, String firstName, UUID id, LocalDateTime startHour, LocalDateTime endHour, LocalDateTime creditHour, StandardDepartment standardDepartment) {
+        super(name, firstName);
+        this.id = id;
+        this.startHour = startHour;
+        this.endHour = endHour;
+        this.creditHour = creditHour;
+        this.standardDepartment = standardDepartment;
+        this.tallies = new ArrayList<>();
     }
 
     /**
@@ -177,6 +188,18 @@ public class Employee extends Person implements Serializable{
      */
     public ArrayList<Tally> getTallies() {
         return tallies;
+    }
+
+    public String[] getRecord() {
+        String[] result;
+        String recordStr = "";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        recordStr += getName() + "," + getFirstName() + "," + id.toString() + "," + startHour.format(formatter) + "," + endHour.format(formatter) + "," + creditHour.format(formatter) + "," + standardDepartment.getName();
+        result = recordStr.split(",");
+
+        return result;
     }
 }
 

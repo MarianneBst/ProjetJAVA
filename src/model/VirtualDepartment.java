@@ -92,6 +92,9 @@ public abstract class VirtualDepartment implements Serializable {
                 break;
             }
         }
+        if(((Employee)(leader)).getId().equals(id)){
+            result = (Employee) leader;
+        }
 
         if( result == null){
             throw new IllegalArgumentException("Wrong ID");

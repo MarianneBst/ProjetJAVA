@@ -65,9 +65,9 @@ public class MainView extends JFrame implements Observer {
         // Sous-menus
         JMenuItem menuOpen = new JMenuItem("Open");
         menuOpen.addActionListener(actionListener);
-        menuFile.add(menuOpen);
         JMenuItem menuSave = new JMenuItem("Save");
         menuSave.addActionListener(actionListener);
+        menuFile.add(menuOpen);
         menuFile.add(menuSave);
 
         setJMenuBar(menuBar);

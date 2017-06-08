@@ -128,6 +128,14 @@ public class Company extends Observable implements Serializable {
         //Add the managers
         result.addAll(managementDepartment.getEmployeesList());
 
+        result.addAll(getOnlyEmployees());
+
+        return result;
+    }
+
+    public ArrayList<Employee> getOnlyEmployees(){
+        ArrayList<Employee> result = new ArrayList<>();
+
         for (StandardDepartment standardDepartment : standardDepartmentList) {
             result.addAll(standardDepartment.getEmployeesList());
         }
