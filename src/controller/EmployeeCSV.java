@@ -12,13 +12,19 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Created by Ronan
+ * Created by Marianne
  * on 08/06/2017.
  */
 public class EmployeeCSV {
 
     private final static char SEPARATOR = ',';
 
+    /**
+     * Find employees array list.
+     *
+     * @param fileInputs the file inputs
+     * @return the array list
+     */
     static public ArrayList<EmployeeDAO> findEmployees(File fileInputs) {
         ArrayList<EmployeeDAO> employees = new ArrayList<>();
         FileReader fr;
@@ -33,7 +39,7 @@ public class EmployeeCSV {
             while ((nextLine = csvReader.readNext()) != null) {
                 int size = nextLine.length;
 
-                // ligne vide
+                //Empty line
                 if (size == 0) {
                     continue;
                 }
@@ -42,7 +48,7 @@ public class EmployeeCSV {
                     continue;
                 }
 
-                // ligne de commentaire
+                //Comment line
                 if (debut.startsWith("#")) {
                     continue;
                 }

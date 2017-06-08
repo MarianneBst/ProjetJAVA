@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * The type Tcp client.
  *
  * @author Marianne
- * @since 01/06/2017
+ * @since 01 /06/2017
  */
 public class TCPClient extends Thread{
     private Socket socket;

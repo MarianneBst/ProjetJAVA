@@ -38,6 +38,17 @@ public class Employee extends Person implements Serializable{
         this.creditHour = 0;
     }
 
+    /**
+     * Instantiates a new Employee.
+     *
+     * @param name               the name
+     * @param firstName          the first name
+     * @param id                 the id
+     * @param startHour          the start hour
+     * @param endHour            the end hour
+     * @param creditHour         the credit hour
+     * @param standardDepartment the standard department
+     */
     public Employee(String name, String firstName, UUID id, LocalDateTime startHour, LocalDateTime endHour, int creditHour, StandardDepartment standardDepartment) {
         super(name, firstName);
         this.id = id;
@@ -227,6 +238,11 @@ public class Employee extends Person implements Serializable{
         return tallies;
     }
 
+    /**
+     * Get record string [ ].
+     *
+     * @return the string [ ]
+     */
     public String[] getRecord() {
         String[] result;
         String recordStr = "";

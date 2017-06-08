@@ -133,6 +133,11 @@ public class Company extends Observable implements Serializable {
         return result;
     }
 
+    /**
+     * Get only employees array list.
+     *
+     * @return the array list
+     */
     public ArrayList<Employee> getOnlyEmployees(){
         ArrayList<Employee> result = new ArrayList<>();
 
